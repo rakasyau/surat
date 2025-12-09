@@ -95,7 +95,7 @@
 
     @if($status == 'welcome')
         <audio id="bg-music" loop>
-            <source src="{{ asset('audio/penjaga-hati.mp3') }}" type="audio/mpeg">
+            <source src="{{ asset('audio/lesung-pipi-cut.mp3') }}" type="audio/mpeg">
         </audio>
     @else
         <audio id="bg-music" loop>
