@@ -7,12 +7,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center;
-            overflow: hidden;
+            overflow: hidden; margin: 0;
         }
         
         /* Style Happy */
@@ -37,21 +40,39 @@
             max-width: 550px; width: 90%;
             position: relative;
             z-index: 10;
+            display: none; /* Disembunyikan dulu sampai tombol diklik */
         }
 
-        /* Tombol WA (Happy) */
+        /* --- OVERLAY PEMICU MUSIK (SOLUSI HP) --- */
+        #music-trigger-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white;
+        }
+
+        .btn-open-gift {
+            background: #a18cd1; color: white; border: none;
+            padding: 15px 40px; border-radius: 50px; font-weight: 700;
+            font-size: 1.2rem; margin-top: 20px;
+            box-shadow: 0 0 20px rgba(161, 140, 209, 0.5);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(161, 140, 209, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(161, 140, 209, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(161, 140, 209, 0); }
+        }
+
+        /* Tombol WA */
         .btn-wa { 
             background: #25D366; color: white; border: none; 
             padding: 15px 40px; border-radius: 50px; font-weight: 700; text-decoration: none; 
             font-size: 1.1rem; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
             display: inline-block; transition: all 0.3s;
         }
-        .btn-wa:hover { 
-            background: #128C7E; color: white; transform: translateY(-3px); 
-            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.5);
-        }
-
-        /* Animasi Hati Berdenyut */
+        
         .heart-icon {
             color: #ff6b6b; font-size: 4rem; margin-bottom: 20px;
             animation: heartbeat 1.5s infinite;
@@ -64,17 +85,25 @@
 </head>
 <body class="{{ $status == 'welcome' ? 'bg-happy' : 'bg-sad' }}">
 
+    <div id="music-trigger-overlay">
+        <h2 class="mb-3 animate__animated animate__fadeInDown">Jawaban Terkirim</h2>
+        <p class="mb-4 text-white-50">Ketuk tombol di bawah untuk membuka hasilnya</p>
+        <button class="btn-open-gift" onclick="openEnding()">
+            <i class="fas fa-envelope-open-text me-2"></i> Buka Pesan
+        </button>
+    </div>
+
     @if($status == 'welcome')
-        <audio id="bg-music" autoplay loop>
+        <audio id="bg-music" loop>
             <source src="{{ asset('audio/penjaga-hati.mp3') }}" type="audio/mpeg">
         </audio>
     @else
-        <audio id="bg-music" autoplay loop>
+        <audio id="bg-music" loop>
             <source src="{{ asset('audio/pamit.mp3') }}" type="audio/mpeg">
         </audio>
     @endif
 
-    <div class="content-box animate__animated animate__zoomIn">
+    <div id="main-content" class="content-box">
         @if($status == 'welcome')
             <div class="heart-icon">❤️</div>
             <h1 class="fw-bold mb-3" style="color: #a18cd1;">Terima Kasih, Na!</h1>
@@ -82,7 +111,7 @@
                 Jujur aku seneng banget kamu milih ini.<br>
                 Ayo kita mulai lagi pelan-pelan sebagai teman baik ya.
             </p>
-            <a href="https://wa.me/628585475995" target="_blank" class="btn-wa">
+            <a href="https://wa.me/6281234567890?text=Hai,%20aku%20udah%20baca%20website%20kamu...%20yuk%20temenan%20lagi" target="_blank" class="btn-wa">
                 <i class="fab fa-whatsapp me-2"></i> Kabari Aku di WA
             </a>
         @else
@@ -94,46 +123,51 @@
                 Gapapa kok. Makasih sudah jujur.<br>
                 Sukses terus buat ambisimu ya, Na. Jaga diri baik-baik.
             </p>
-            
             <button onclick="exitPage()" class="btn btn-outline-secondary rounded-pill px-4 py-2">Tutup Halaman</button>
         @endif
     </div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <script>
-        // FUNGSI TUTUP HALAMAN (Alternatif Aman)
+        // Fungsi Exit untuk Sad Ending
         function exitPage() {
-            // 1. Coba tutup standar (Biasanya diblokir Chrome/Edge jika user buka sendiri)
-            window.close(); 
-            
-            // 2. Trik paksa (Kadang berhasil di browser lama)
-            window.open('','_parent',''); 
             window.close();
-            
-            // 3. FALLBACK TERAKHIR (Paling Pasti)
-            // Arahkan ke halaman kosong putih (about:blank). 
-            // Ini ngasih efek "Sudah Selesai" / Hampa.
             window.location.href = "about:blank";
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        // FUNGSI UTAMA: BUKA HASIL & PUTAR MUSIK
+        function openEnding() {
             var audio = document.getElementById('bg-music');
+            var overlay = document.getElementById('music-trigger-overlay');
+            var content = document.getElementById('main-content');
+            
+            // 1. Putar Musik (Dijamin jalan di HP karena dipicu klik user)
             if(audio) {
                 audio.volume = document.body.classList.contains('bg-happy') ? 0.8 : 0.5;
-                audio.play().catch(error => { console.log("Autoplay blocked"); });
+                audio.play();
             }
 
-            @if($status == 'welcome')
-                var duration = 5 * 1000;
-                var end = Date.now() + duration;
-                (function frame() {
-                    confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff9a9e', '#fecfef', '#a18cd1'] });
-                    confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff9a9e', '#fecfef', '#a18cd1'] });
-                    if (Date.now() < end) requestAnimationFrame(frame);
-                }());
-            @endif
-        });
+            // 2. Hilangkan Overlay dengan animasi
+            $(overlay).fadeOut(500, function() {
+                // 3. Munculkan Konten Utama
+                $(content).fadeIn(500).addClass('animate__animated animate__zoomIn');
+                
+                // 4. Jalankan Confetti jika Happy
+                @if($status == 'welcome')
+                    startConfetti();
+                @endif
+            });
+        }
+
+        function startConfetti() {
+            var duration = 5 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff9a9e', '#fecfef', '#a18cd1'] });
+                confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff9a9e', '#fecfef', '#a18cd1'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
+            }());
+        }
     </script>
 </body>
 </html>
