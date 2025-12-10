@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <style>
         /* --- CORE STYLES (DARK THEME) --- */
@@ -15,7 +16,7 @@
             font-family: 'Poppins', sans-serif;
             /* Gradasi Langit Malam */
             background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
-            color: #e0e0e0; /* Teks putih gading biar ga sakit mata */
+            color: #e0e0e0;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -27,10 +28,7 @@
             z-index: -1; pointer-events: none;
         }
         .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
+            position: absolute; background: white; border-radius: 50%; opacity: 0;
             animation: twinkle infinite ease-in-out;
         }
         @keyframes twinkle {
@@ -39,103 +37,92 @@
             100% { opacity: 0.2; transform: scale(0.8); }
         }
 
+        /* --- OVERLAY TRIGGER (PEMBUKA) --- */
+        #start-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #090a0f; /* Gelap total */
+            z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white;
+            transition: opacity 1s ease;
+        }
+
+        .btn-open-story {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.5);
+            color: white;
+            padding: 15px 40px; border-radius: 50px;
+            font-size: 1.1rem; letter-spacing: 2px;
+            margin-top: 30px;
+            transition: 0.3s;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+        .btn-open-story:hover {
+            background: white; color: #090a0f;
+            box-shadow: 0 0 40px rgba(255,255,255,0.5);
+            transform: scale(1.05);
+        }
+
         /* --- PAPER CONTAINER (DARK GLASS) --- */
         .paper-wrapper { 
             padding: 20px 15px; 
-            display: flex; 
+            display: none; /* Disembunyikan dulu */
             justify-content: center; 
             min-height: 100vh; 
             align-items: center;
         }
         
         .paper-container {
-            width: 100%;
-            max-width: 700px; 
-            /* Kaca Gelap Transparan */
+            width: 100%; max-width: 700px; 
             background: rgba(0, 0, 0, 0.5); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 50px; 
-            border-radius: 20px;
-            /* Border tipis glowing */
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            padding: 50px; border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 0 40px rgba(0,0,0,0.5); 
-            border-top: 4px solid #a18cd1; /* Aksen Ungu di atas */
-            position: relative; 
-            z-index: 10;
+            border-top: 4px solid #a18cd1; 
+            position: relative; z-index: 10;
         }
 
         h2 { 
-            color: #e0c3fc; /* Ungu Muda Neon */
-            font-weight: 600; 
-            letter-spacing: 1px; 
-            margin-bottom: 2rem;
+            color: #e0c3fc; font-weight: 600; letter-spacing: 1px; margin-bottom: 2rem;
             text-shadow: 0 0 10px rgba(224, 195, 252, 0.3);
         }
         
         p { 
-            line-height: 1.8; 
-            margin-bottom: 1.5rem; 
-            text-align: justify; 
-            font-size: 1rem; 
-            color: #d1d1d1; /* Abu terang */
-            font-weight: 300;
+            line-height: 1.8; margin-bottom: 1.5rem; text-align: justify; 
+            font-size: 1rem; color: #d1d1d1; font-weight: 300;
         }
 
-        /* Highlight Text (Glowing Text) */
         .highlight {
-            color: #8fd3f4; /* Cyan Muda */
-            font-weight: 600;
-            text-shadow: 0 0 15px rgba(143, 211, 244, 0.4);
+            color: #8fd3f4; font-weight: 600; text-shadow: 0 0 15px rgba(143, 211, 244, 0.4);
             transition: all 0.3s;
         }
         .paper-container:hover .highlight { color: #fff; text-shadow: 0 0 20px #8fd3f4; }
 
-        /* Button Next (Glowing Gradient) */
         .btn-next {
-            background: transparent;
-            border: 2px solid #a18cd1;
-            color: #a18cd1;
-            padding: 12px 40px; 
-            border-radius: 50px;
-            font-weight: 600; 
-            letter-spacing: 1px; 
-            transition: all 0.3s;
-            text-decoration: none; 
-            display: inline-block;
-            box-shadow: 0 0 15px rgba(161, 140, 209, 0.1);
+            background: transparent; border: 2px solid #a18cd1; color: #a18cd1;
+            padding: 12px 40px; border-radius: 50px; font-weight: 600; 
+            letter-spacing: 1px; transition: all 0.3s; text-decoration: none; 
+            display: inline-block; box-shadow: 0 0 15px rgba(161, 140, 209, 0.1);
         }
         .btn-next:hover { 
-            background: #a18cd1; 
-            color: #090a0f; 
-            box-shadow: 0 0 30px rgba(161, 140, 209, 0.6); 
-            transform: translateY(-3px);
+            background: #a18cd1; color: #090a0f; 
+            box-shadow: 0 0 30px rgba(161, 140, 209, 0.6); transform: translateY(-3px);
         }
 
-        /* TOMBOL MUSIK (Dark Mode Style) */
+        /* TOMBOL MUSIK (Manual Control) */
         .music-toggle-btn {
-            background: rgba(255,255,255,0.1); 
-            border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff;
-            padding: 8px 18px; 
-            border-radius: 50px; 
-            font-weight: 400; 
-            font-size: 0.85rem;
-            transition: all 0.3s; 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 10px; 
-            cursor: pointer;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff;
+            padding: 8px 18px; border-radius: 50px; font-weight: 400; font-size: 0.85rem;
+            transition: all 0.3s; display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
         }
         .music-toggle-btn:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
         .music-toggle-btn.playing { 
-            background: rgba(161, 140, 209, 0.3); 
-            border-color: #a18cd1; 
-            color: #e0c3fc;
+            background: rgba(161, 140, 209, 0.3); border-color: #a18cd1; color: #e0c3fc;
             box-shadow: 0 0 15px rgba(161, 140, 209, 0.3);
         }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             .paper-container { padding: 30px 20px; }
             h2 { font-size: 1.5rem; }
@@ -149,20 +136,29 @@
         <source src="{{ asset('audio/penjaga-hati.mp3') }}" type="audio/mpeg">
     </audio>
 
+    <div id="start-overlay">
+        <small class="text-white-50 mb-4 animate__animated animate__fadeIn">Untuk Hasna</small>
+        
+        <button class="btn-open-story animate__animated animate__pulse animate__infinite" onclick="openStory()">
+            <i class="fas fa-book-open me-2"></i> BUKA
+        </button>
+    </div>
+
     <div id="star-container"></div>
 
-    <div class="paper-wrapper animate__animated animate__fadeIn">
+    <div class="paper-wrapper" id="main-wrapper">
         <div class="paper-container">
             
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div></div>
-                <button id="btn-music" class="music-toggle-btn">
-                    <i class="fas fa-play" id="music-icon"></i> 
-                    <span id="music-text">Putar Lagu</span>
+                <button id="btn-music" class="music-toggle-btn playing">
+                    <i class="fas fa-pause" id="music-icon"></i> 
+                    <span id="music-text">Jeda Lagu</span>
                 </button>
             </div>
 
             <h2 class="text-center">Untuk, Hasna.</h2>
+            
             <p>
                 Assalamu'alaikum na... 
             </p>
@@ -209,43 +205,46 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- 1. LOGIKA GENERATE BINTANG ---
-            const starContainer = document.getElementById('star-container');
-            const starCount = 100; // Jumlah bintang
+        // FUNGSI BUKA SURAT & PLAY MUSIK
+        function openStory() {
+            var audio = document.getElementById('bg-music');
+            var overlay = document.getElementById('start-overlay');
+            var wrapper = document.getElementById('main-wrapper');
 
-            for (let i = 0; i < starCount; i++) {
+            // 1. Play Musik
+            if(audio) {
+                audio.volume = 0.6;
+                audio.play();
+            }
+
+            // 2. Fade Out Overlay -> Fade In Surat
+            $(overlay).fadeOut(1000, function() {
+                $(wrapper).css('display', 'flex').hide().fadeIn(1500).addClass('animate__animated animate__fadeInUp');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- 1. GENERATE BINTANG ---
+            const starContainer = document.getElementById('star-container');
+            for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
-                
-                // Posisi Acak
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
-                
-                // Ukuran Acak (Kecil-kecil biar estetik)
-                const size = Math.random() * 3 + 1; // 1px sd 4px
-                
-                // Durasi Kelap-kelip Acak
-                const duration = Math.random() * 3 + 2; // 2s sd 5s
+                const size = Math.random() * 3 + 1;
+                const duration = Math.random() * 3 + 2;
                 const delay = Math.random() * 5;
-
-                star.style.left = `${x}%`;
-                star.style.top = `${y}%`;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.animationDuration = `${duration}s`;
-                star.style.animationDelay = `${delay}s`;
-
+                star.style.left = `${x}%`; star.style.top = `${y}%`;
+                star.style.width = `${size}px`; star.style.height = `${size}px`;
+                star.style.animationDuration = `${duration}s`; star.style.animationDelay = `${delay}s`;
                 starContainer.appendChild(star);
             }
 
-            // --- 2. LOGIKA MUSIK ---
+            // --- 2. LOGIKA TOMBOL MUSIK (PAUSE/RESUME) ---
             const audio = document.getElementById('bg-music');
             const btn = document.getElementById('btn-music');
             const icon = document.getElementById('music-icon');
             const text = document.getElementById('music-text');
-            
-            audio.volume = 0.6;
 
             btn.addEventListener('click', function() {
                 if (audio.paused) {
