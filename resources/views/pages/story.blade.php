@@ -162,7 +162,7 @@
                 </button>
             </div>
 
-            <h2 class="text-center">Untukmu, Hasna.</h2>
+            <h2 class="text-center">Untuk, Hasna.</h2>
             <p>
                 Assalamu'alaikum na... 
             </p>
@@ -192,11 +192,11 @@
             </p>
 
             <p>
-                Setelah diliat-liat, rasanya tipe kamu gaada di diri aku, apalagi aku yang sekarang. Tipe kamu mungkin yang aktif orangnya, ambis, dan bisa diajak gila²an... Mungkin kyk wali, Ya... Kyk tadi, ternyata kita belum deket, rasanya diri kamu yang asli blom keliatan pas sama aku, begitu pun sebaliknya.
+                Setelah diliat-liat, rasanya tipe kamu gaada di diri aku, apalagi aku yang sekarang. Tipe kamu mungkin yang aktif orangnya, ambis, dan bisa diajak gila²an... Mungkin kyk wali. Ya... Kyk tadi, ternyata kita belum deket, rasanya diri kamu yang asli blom keliatan pas sama aku, begitu pun sebaliknya.
             </p>
 
             <p>
-                <span class="highlight">Apa kita masih bisa balikan?</span> apa kamu ga risih sama ingatan masa lalu? Aku gatau ya kamu lagi deket sama cowo atau ngga, tapi kalau iya tolong kasih tau, biar aku punya alasan kuat buat ga interaksi sama kamu lagi...
+                <span class="highlight">Apa kita masih bisa balikan?</span> apa kita bisa kyk biasa lagi? apa kamu ga risih sama ingatan masa lalu? Aku gatau kamu lagi deket sama cowo atau ngga, tapi kalau iya tolong kasih tau, biar aku punya alasan kuat buat ga interaksi sama kamu lagi...
             </p>
 
             <div class="text-center mt-5">

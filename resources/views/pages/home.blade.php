@@ -29,11 +29,11 @@
 <body>
     <div class="container text-center">
         <div class="card card-custom mx-auto" style="max-width: 400px;">
-            <h2 class="fw-bold text-dark mb-4">Selamat Datang</h2>
+            <h3 class="fw-bold text-dark mb-4">Masukin nama dulu, kalo bener boleh masuk</h3>
             <form action="{{ route('check.name') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <input type="text" name="name" class="form-control text-center rounded-pill py-2" placeholder="Masukkan nama panggilan (kecil semua)" required>
+                    <input type="text" name="name" class="form-control text-center rounded-pill py-2" placeholder="Masukin nama" required>
                 </div>
                 <button type="submit" class="btn btn-start w-100">Masuk</button>
             </form>

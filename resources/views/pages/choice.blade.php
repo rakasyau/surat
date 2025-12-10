@@ -114,7 +114,7 @@
 <body>
     
     <audio id="bg-music" loop>
-        <source src="{{ asset('audio/penjaga-hati.mp3') }}" type="audio/mpeg">
+        <source src="{{ asset('audio/Snowfall.mp3') }}" type="audio/mpeg">
     </audio>
 
     <div class="game-area">
@@ -129,8 +129,8 @@
         <h2 id="question">kamu mau yang mana?</h2>
         
         <div class="btn-wrapper">
-            <button class="btn btn-welcome" onclick="submitChoice('welcome')" id="btn-welcome-el">Selamat Datang Kembali</button>
-            <button class="btn btn-goodbye" id="btn-run">Selamat Tinggal</button>
+            <button class="btn btn-welcome" onclick="submitChoice('welcome')" id="btn-welcome-el">Balikan</button>
+            <button class="btn btn-goodbye" id="btn-run">Udahan</button>
         </div>
     </div>
 
@@ -205,7 +205,7 @@
                     "Beneran mau udahan?", 
                     "Coba pikirin lagi...", 
                     "Jangan dong na...", 
-                    "Sekali lagi klik, aku ikhlas."
+                    "oke gpp"
                 ];
                 if(attempts <= texts.length) {
                     questionText.fadeOut(200, function() {

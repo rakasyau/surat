@@ -106,22 +106,23 @@
     <div id="main-content" class="content-box">
         @if($status == 'welcome')
             <div class="heart-icon">❤️</div>
-            <h1 class="fw-bold mb-3" style="color: #a18cd1;">Terima Kasih, Na!</h1>
+            <h1 class="fw-bold mb-3" style="color: #a18cd1;">Terima Kasih, Na...</h1>
             <p class="fs-5 mb-5 text-secondary" style="line-height: 1.6;">
-                Jujur aku seneng banget kamu milih ini.<br>
-                Ayo kita mulai lagi pelan-pelan sebagai teman baik ya.
+                Aku seneng banget kamu milih ini.<br>
+                Kita mulai lagi pelan-pelan ya...
             </p>
-            <a href="https://wa.me/6281234567890?text=Hai,%20aku%20udah%20baca%20website%20kamu...%20yuk%20temenan%20lagi" target="_blank" class="btn-wa">
-                <i class="fab fa-whatsapp me-2"></i> Kabari Aku di WA
+            <a href="https://wa.me/628985475995" target="_blank" class="btn-wa">
+                <i class="fab fa-whatsapp me-2"></i> Kabarin Aku di WA
             </a>
         @else
             <div class="mb-4 text-secondary opacity-50">
                 <i class="fas fa-wind fa-3x animate__animated animate__pulse animate__infinite"></i>
             </div>
-            <h1 class="fw-bold mb-3 text-secondary">Aku Mengerti.</h1>
+            <h1 class="fw-bold mb-3 text-secondary">Aku ngerti na...</h1>
             <p class="fs-5 mb-5 text-secondary">
-                Gapapa kok. Makasih sudah jujur.<br>
+                Gapapa kok. Makasih udah jujur.<br>
                 Sukses terus buat ambisimu ya, Na. Jaga diri baik-baik.
+                Tolong hapus semua chat kita ya, aku juga bakal demikian.
             </p>
             <button onclick="exitPage()" class="btn btn-outline-secondary rounded-pill px-4 py-2">Tutup Halaman</button>
         @endif
